@@ -5,7 +5,7 @@ date: "25 août 2017"
 output:
   html_document:
     # theme: sky
-    # highlight: pygments
+    highlight: pygments
     css: custom.css
     toc: yes
     toc_float: TRUE

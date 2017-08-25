@@ -9,7 +9,23 @@ body{
     /* Scale the background image to be as large as possible */
     background-size: cover;
   
- 
+/*body{
+   background-image: url('Logo Canhgiacduoc Page 4.8x4.8.png');
+   min-height: 500px;
+    /* Set background image to fixed (don't scroll along with the page) */
+    background-attachment: fixed;
+    background-position: right top;
+    /* Set the background image to no repeat */
+    background-repeat: no-repeat;
+    /* Scale the background image to be as large as possible */
+    background-size: cover;
+  
+/*   padding: 50px 0;
+  margin: 0;
+  font: 14px/1.5 Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #555;
+  font-weight: 300;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAeCAYAAABNChwpAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAAAUdEVYdENyZWF0aW9uIFRpbWUAMy82LzEygrTcTAAAAFRJREFUSIljfPDggZRf5RIGGNjUHsNATz6jXmSL1Kb2GLiAX+USBnrymRgGGDCORgFmoNAXjEbBaBSMRsFoFIxGwWgUjEbBaBSMRsFoFIxGwWgUAABYNujumib3wAAAAABJRU5ErkJggg==') fixed;*/
   
 }
 
@@ -33,11 +49,52 @@ body{
 body{ /* Normal  */
   font-size: 17px;
 }
-/*
+
 code.r{ /* Code block /
   font-size: 19px;
 }
+
+
+pre code {
+  color: #221E66;
+}
+  
+code, pre {
+  font-family: Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
+  color: #333;
+  font-size: 19px;
+  overflow-x: auto;
+}
+
 */
+  
+}
+
+#left {
+  left:-8.33%;
+  text-align: left;
+  float: left;
+  width:50%;
+  z-index:-10;
+}
+
+#right {
+  left:31.25%;
+  top: 75px;
+  float: right;
+  text-align: right;
+  z-index:-10;
+  width:50%;
+}
+
+body{ /* Normal  */
+  font-size: 17px;
+}
+
+code.r{ /* Code block /
+  font-size: 19px;
+}
+
 
 pre code {
   color: #221E66;
