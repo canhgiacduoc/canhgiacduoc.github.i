@@ -1,0 +1,355 @@
+<!--begin.rcode echo=FALSE, results='hide'
+  options(width = 60, digits = 2, warn=-1)
+  opts_chunk$set(fig.width=7, fig.height=5, out.width=700, out.height=500, fig.path="figures/models-", warning=FALSE, message=FALSE)
+end.rcode-->
+
+<!DOCTYPE html>
+<html>
+<head>
+        <link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=1024, user-scalable=no">
+	<meta name="author" content="Joshua F. Wiley">
+	<meta name="author-ORCID" content="0000-0002-0271-6702">
+	<meta name="keywords" content="R, Statistics, Models">
+	<meta name="description" content="Visualizing data and estimating models in R">
+
+	<title>Introduction to Modeling in R</title>
+
+	<!-- Required stylesheet -->
+	<link rel="stylesheet" href="core/deck.core.css">
+
+	<!-- Extension CSS files go here. Remove or add as needed. -->
+	<link rel="stylesheet" href="extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="extensions/status/deck.status.css">
+	<link rel="stylesheet" href="extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<link rel="stylesheet" href="themes/style/swiss.css">
+
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
+
+	<!-- Required Modernizr file -->
+	<script src="modernizr.custom.js"></script>
+
+        <script type="text/javascript"
+          src="https://c328740.ssl.cf1.rackcdn.com/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+</head>
+
+<!--begin.rcode dat, include=FALSE, tidy=FALSE
+# load data
+load("~/Documents/Research/ROMS/Data/ROMS_analyses.rdata")
+d <- na.omit(ROMS.analyses[, c("MCS1", "PCS1", "AGE", "logMAR1", "MASTERY",
+  "LOT", "HOPE", "CNQTotal", "NEONeuroticism", "COMS1", "nolifeevnt1", "GENDER",
+  "DeltaTreatmentTime1", "panas_pa1")])
+colnames(d) <- c("mentalHealth", "physicalHealth", "age", "logMAR1", "mastery",
+  "optimism", "hope", "cancerNeeds", "neuroticism", "concern", "lifeEvent",
+  "gender", "deltaTime", "positiveAffect")
+d$lifeEvent <- factor(as.numeric(d$lifeEvent), labels = c("yes", "no"))
+
+rm(ROMS.analyses)
+end.rcode-->
+
+<body class="deck-container">
+
+<!-- Begin slides. Just make elements with a class of slide. -->
+
+<section class="slide" id="title-slide">
+  <center>
+    <h2>Introduction to Modeling in R</h2>
+    <h3>Joshua Wiley, M.A.</h3>
+    <h3>Senior Analyst &mdash; <a style="color:grey;" href="http://elkhartgroup.com">Elkhart
+    Group</a></h3>
+  </center>
+</section>
+
+<section class="slide">
+    <h2>Overview</h2>
+    <p>Examples using linear regression and linear regression with smooths</p>
+    <p><code>ggplot2</code> for graphics and visualization</p>
+    <p>Synthesize models and visualization to</p>
+    <ul>
+      <li>Visualize data to inform models <em>and</em></li>
+      <li>condition on models to explore data</li>
+    </ul>
+</section>
+
+<section class="slide">
+    <h2>Basics</h2>
+<!--begin.rcode fig.height=3, out.height=300
+require(ggplot2)
+(p <- ggplot(d, aes(mentalHealth)) + geom_histogram(binwidth=2))
+end.rcode-->
+<p>How would you summarize the distribution?</p>
+</section>
+
+<section class="slide">
+    <h2>Basics</h2>
+<p>You could use the expectation
+    \[E(y) = <!--rinline I(mean(d$mentalHealth)) --> \]
+</p>
+<!--begin.rcode fig.height=3, out.height=300
+p + geom_vline(xintercept=mean(d$mentalHealth), size=2, colour="red")
+end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Basics</h2>
+<!--begin.rcode
+(p <- ggplot(d, aes(mastery, mentalHealth)) + geom_point())
+end.rcode-->
+    <p>How would you summarize this distribution?</p>
+</section>
+
+<section class="slide">
+    <h2>Basics</h2>
+    <p>You could use the <em>conditional</em> expectation
+    \( E(y | f(x)) \) where \(f(\cdot)\) is some function, say linear</p>
+<!--begin.rcode
+  m <- lm(mentalHealth ~ mastery, data = d)
+end.rcode-->
+    <p>
+    \[ \widehat{mentalHealth} = <!--rinline I(coef(m)[1]) --> + <!--rinline I(coef(m)[2]) --> mastery \]
+    </p>
+<!--begin.rcode
+p + geom_abline(intercept = coef(m)[1], slope = coef(m)[2])
+end.rcode-->
+
+</section>
+
+<section class="slide">
+    <h2>Multiple dimensions</h2>
+    <p>The conditional expectation generalizes to \(\mathbb{R}^{N}\), but graphs do not.</p>
+    <!--begin.rcode
+      coef(lm(mentalHealth ~ mastery + neuroticism, d))[["mastery"]]
+    end.rcode-->
+    <p>Under certain conditions, \( E(y | f(x_1, x_2)) \approx E( y | f(x_1) ~~ | ~~ f(x_2 | f(x_1))~) \)</p>
+    <!--begin.rcode
+      m1 <- lm(cbind(mentalHealth, mastery) ~ neuroticism, d)
+      coef(lm(mentalHealth ~ mastery, rd <- as.data.frame(resid(m1))))[["mastery"]]
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Multiple dimensions</h2>
+    <p>We can take advantage of this for data and model visualization</p>
+    <!--begin.rcode fig.width=10, out.width=1000
+      p <- ggplot(d, aes(mastery, mentalHealth)) + geom_point() + stat_smooth(method="lm")
+      require(gridExtra)
+      grid.arrange(p, p %+% rd, ncol=2)
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Multiple dimensions</h2>
+    <p>This concept also generalizes:
+      \( E( y | f(x_1, \ldots, x_{n - 1}) ~~ | ~~ f(x_n | f(x_1, \ldots, x_{n - 1}))~) \)
+    </p>
+    <!--begin.rcode
+    rd <- as.data.frame(resid(lm(cbind(mentalHealth, mastery) ~ age + hope + neuroticism, d)))
+    p %+% rd
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Multiple dimensions</h2>
+    <!--begin.rcode message=FALSE, warning=FALSE
+    require(GGally)
+    ggpairs(d[, c(1, 2, 11, 12)], lower=list(continuous = "smooth"))
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Other Functional Forms</h2>
+    <p>So far simple linear functional forms, but \(f(\cdot)\) can be any</p>
+    <p>When form is unknown, splines or smooth parameters are useful, especially for
+       "nuissance" variables</p>
+    <p>Many options -- <code>mgcv</code> package has the <code>gam</code> function for
+       <a href="http://www.crcpress.com/ecommerce_product/product_detail.jsf?catno=C4746&isbn=0000000000000">generalized additive models</a> with a general smooth function <code>s()</code> defaulting to thin-plate</p>
+    <p>Also the <code>splines</code> package for b-splines <code>bs()</code> or
+        natural cubic splines <code>ns()</code> you can use in any modeling function</p>
+    <!--begin.rcode
+    require(mgcv)
+    require(splines)
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Other Functional Forms</h2>
+    <!--begin.rcode tidy=FALSE
+    # fit and store models
+    m.linear <- lm(positiveAffect ~ deltaTime, d)
+    m.quadratic <- lm(positiveAffect ~ deltaTime + I(deltaTime^2), d)
+    m.smooth <- gam(positiveAffect ~ s(deltaTime, k = 5), data = d)
+
+    # data set of raw and predicted values
+    pdat <- cbind(d[, c("deltaTime", "positiveAffect")],
+              linear = fitted(m.linear),
+              quadratic = fitted(m.quadratic),
+              smooth = fitted(m.smooth))
+
+    # plot of raw data with separate coloured lines by model
+    p <- ggplot(pdat, aes(deltaTime, positiveAffect)) + geom_point() +
+      geom_line(aes(y = linear), colour = "green", size=1.2) +
+      geom_line(aes(y = quadratic), colour = "blue", size=1.2) +
+      geom_line(aes(y = smooth), colour = "red", size=1.2)
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Other Functional Forms</h2>
+    <!--begin.rcode echo=FALSE
+    print(p)
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Other Functional Forms</h2>
+    <p>Days since treatment, visual acuity (logMAR), and age are nuissance variables; we care about mastery &amp; positive affect</p>
+    <!--begin.rcode tidy=FALSE
+    ldat <- melt(d[, c("deltaTime", "logMAR1", "age", "mastery",
+      "positiveAffect")], id.vars="positiveAffect")
+
+    ggplot(ldat, aes(value, positiveAffect)) + geom_point() +
+      stat_smooth(se=FALSE) + facet_wrap(~variable, scales="free_x")
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Other Functional Forms</h2>
+    <!--begin.rcode tidy=FALSE
+    # smooth model - k = 10 for high flexibility
+    m.smooth <- gam(positiveAffect ~ s(deltaTime, k = 10) +
+      s(logMAR1, k = 10) + s(age, k = 10), data = d)
+
+    # linear model only
+    m.linear <- lm(positiveAffect ~ deltaTime + logMAR1 + age, data = d)
+
+    # pull out residuals in a data set
+    pdat <- data.frame(mastery = d$mastery,
+      residualPositiveAffect = c(resid(m.smooth), resid(m.linear)),
+      Type = rep(c("smooth", "linear"), each = nrow(d)))
+
+    # make the graph (separate by model type)
+    p <- ggplot(pdat, aes(mastery, residualPositiveAffect)) +
+      geom_point() + stat_smooth(method="lm") +
+      facet_wrap(~ Type)
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Other Functional Forms</h2>
+    <!--begin.rcode echo=FALSE, fig.width=10, out.width=1000
+    print(p)
+    end.rcode-->
+    <!--begin.rcode
+    # correlation between residuals
+    cor(resid(m.smooth), resid(m.linear))
+    end.rcode-->
+</section>
+
+<section class="slide">
+    <h2>Review</h2>
+    <div style="float: left; width: 18%;">
+    <p>Packages</p>
+ <ul>
+   <li>ggplot2</li>
+   <li>gridExtra</li>
+   <li>GGally</li>
+   <li>mgcv</li>
+   <li>reshape</li>
+ </ul>
+ </div>
+ <div style="float: left; width: 40%;">
+ <p>Graphics Functions</p>
+ <ul>
+   <li>ggplot() - setup graph</li>
+   <li>geom_point() - add points</li>
+   <li>geom_histogram() - histogram</li>
+   <li>stat_smooth() - add smooth line</li>
+   <li>ggpairs() - matrix of graphs</li>
+   <li>aes() - set aesthetics (e.g., x axis, colour)</li>
+ </ul>
+ </div>
+ <div style="float: right; width: 40%;">
+ <p>Model Functions</p>
+ <ul>
+   <li>lm() - linear model</li>
+   <li>gam() - additive model</li>
+   <li>coef() - extract coefficients</li>
+   <li>resid() - extract residuals</li>
+   <li>fitted() - extract fitted values</li>
+   <li>s() - smooth a term</li>
+   <li>I() - R commands in formulae</li>
+ </ul>
+ </div>
+</section>
+
+<section class="slide">
+	<h2>Info</h2>
+	<ul>
+	  <li>Slides: <a href="http://elkhartgroup.com/rmodels.php">
+	  http://elkhartgroup.com/rmodels.php</a></li>
+	  <li>Company: <a href="http://elkhartgroup.com">
+	  http://elkhartgroup.com </a></li>
+	  <li>Me: josh {a t} elkhartgroup.com</li>
+	</ul>
+</section>
+
+<!-- End slides. -->
+
+
+<!-- Begin extension snippets. Add or remove as needed. -->
+
+<!-- deck.navigation snippet -->
+<a href="#" class="deck-prev-link" title="Previous">&#8592;</a>
+<a href="#" class="deck-next-link" title="Next">&#8594;</a>
+
+<!-- deck.status snippet -->
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
+
+<!-- deck.goto snippet -->
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+
+<!-- deck.hash snippet -->
+<a href="." title="Permalink to this slide" class="deck-permalink">#</a>
+
+<!-- End extension snippets. -->
+
+
+<!-- Required JS files. -->
+<script src="jquery-1.7.2.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="core/deck.core.js"></script>
+<script src="extensions/hash/deck.hash.js"></script>
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+</body>
+</html>
