@@ -197,8 +197,27 @@ h4.date { /* Header 4 - and the author and data headers use this too  */
   text-align: center;
 }
 </style>
+<div id="columes" class="section level1">
+<h1>2 columes</h1>
+<div id="left">
+<p><span class="math display">\[y_i \backsim Normal(\mu_i, \sigma)\]</span> <span class="math display">\[\mu_i = \alpha + \beta x_i\]</span> <span class="math display">\[\sigma \backsim Uniform(0, 1)\]</span> <span class="math display">\[\beta \backsim Normal(0, 10)\]</span> <span class="math display">\[\alpha \backsim Normal(0, 10)\]</span></p>
+</div>
+<div id="right">
+<ul>
+<li><code>Likelihood</code></li>
+<li><code>Linear model</code></li>
+<li><code>sigma prior</code></li>
+<li><code>beta prior</code></li>
+<li><code>alpha prior</code></li>
+</ul>
+</div>
+</div>
+<div id="normal" class="section level1">
+<h1>normal</h1>
 <p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
-<p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
+<p><font size="300"> When you click the <strong>Knit</strong> button a document will</font> be generated that includes both content as well as the output of any embedded R code chunks within the document.</p>
+<p><bdi style="font-size:70%;">(<strong><code>?dplyr::select</code></strong>)</bdi></p>
+<p>You can embed an R code chunk like this:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShjYXJzKVxuYGBgIn0= -->
@@ -216,8 +235,9 @@ h4.date { /* Header 4 - and the author and data headers use this too  */
 <p>Note that the <code>echo = FALSE</code> parameter was added to the code chunk to prevent printing of the R code that generated the plot.</p>
 <!-- rnb-text-end -->
 </div>
+</div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIsSQw4FOSCBHScOBIFNKUy9URU4gQ+G7pkEgVEhV4buQQyBLSMOBTkcgU0lOSCINCmF1dGhvcjogIk5HVVlFTiBLaGFjLUR1bmciDQpkYXRlOiAiMjUgYW/Du3QgMjAxNyINCm91dHB1dDoNCiAgaHRtbF9kb2N1bWVudDoNCiAgICBjc3M6IGN1c3RvbS5jc3MNCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmBgYA0KDQoNCjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+DQoNCmgxLnRpdGxlIHsNCiAgZm9udC1zaXplOiAzOHB4Ow0KICBjb2xvcjogRGFya1JlZDsNCiAgdGV4dC1hbGlnbjogY2VudGVyOw0KfQ0KaDQuYXV0aG9yIHsgLyogSGVhZGVyIDQgLSBhbmQgdGhlIGF1dGhvciBhbmQgZGF0YSBoZWFkZXJzIHVzZSB0aGlzIHRvbyAgKi8NCiAgICBmb250LXNpemU6IDE4cHg7DQogIGZvbnQtZmFtaWx5OiAiVGltZXMgTmV3IFJvbWFuIiwgVGltZXMsIHNlcmlmOw0KICBjb2xvcjogRGFya1JlZDsNCiAgdGV4dC1hbGlnbjogY2VudGVyOw0KfQ0KaDQuZGF0ZSB7IC8qIEhlYWRlciA0IC0gYW5kIHRoZSBhdXRob3IgYW5kIGRhdGEgaGVhZGVycyB1c2UgdGhpcyB0b28gICovDQogIGZvbnQtc2l6ZTogMThweDsNCiAgZm9udC1mYW1pbHk6ICJUaW1lcyBOZXcgUm9tYW4iLCBUaW1lcywgc2VyaWY7DQogIGNvbG9yOiBEYXJrQmx1ZTsNCiAgdGV4dC1hbGlnbjogY2VudGVyOw0KfQ0KPC9zdHlsZT4NCiAgICAgIA0KVGhpcyBpcyBhbiBSIE1hcmtkb3duIGRvY3VtZW50LiBNYXJrZG93biBpcyBhIHNpbXBsZSBmb3JtYXR0aW5nIHN5bnRheCBmb3IgYXV0aG9yaW5nIEhUTUwsIFBERiwgYW5kIE1TIFdvcmQgZG9jdW1lbnRzLiBGb3IgbW9yZSBkZXRhaWxzIG9uIHVzaW5nIFIgTWFya2Rvd24gc2VlIDxodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tPi4NCg0KV2hlbiB5b3UgY2xpY2sgdGhlICoqS25pdCoqIGJ1dHRvbiBhIGRvY3VtZW50IHdpbGwgYmUgZ2VuZXJhdGVkIHRoYXQgaW5jbHVkZXMgYm90aCBjb250ZW50IGFzIHdlbGwgYXMgdGhlIG91dHB1dCBvZiBhbnkgZW1iZWRkZWQgUiBjb2RlIGNodW5rcyB3aXRoaW4gdGhlIGRvY3VtZW50LiBZb3UgY2FuIGVtYmVkIGFuIFIgY29kZSBjaHVuayBsaWtlIHRoaXM6DQoNCmBgYHtyIGNhcnN9DQpzdW1tYXJ5KGNhcnMpDQpgYGANCg0KIyMgSW5jbHVkaW5nIFBsb3RzDQoNCllvdSBjYW4gYWxzbyBlbWJlZCBwbG90cywgZm9yIGV4YW1wbGU6DQoNCmBgYHtyIHByZXNzdXJlLCBlY2hvPUZBTFNFfQ0KcGxvdChwcmVzc3VyZSkNCmBgYA0KDQpOb3RlIHRoYXQgdGhlIGBlY2hvID0gRkFMU0VgIHBhcmFtZXRlciB3YXMgYWRkZWQgdG8gdGhlIGNvZGUgY2h1bmsgdG8gcHJldmVudCBwcmludGluZyBvZiB0aGUgUiBjb2RlIHRoYXQgZ2VuZXJhdGVkIHRoZSBwbG90Lg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIsSQw4FOSCBHScOBIFNKUy9URU4gQ+G7pkEgVEhV4buQQyBLSMOBTkcgU0lOSCINCmF1dGhvcjogIk5HVVlFTiBLaGFjLUR1bmciDQpkYXRlOiAiMjUgYW/Du3QgMjAxNyINCm91dHB1dDoNCiAgaHRtbF9kb2N1bWVudDoNCiAgICAjIHRoZW1lOiBza3kNCiAgICAjIGhpZ2hsaWdodDogcHlnbWVudHMNCiAgICBjc3M6IGN1c3RvbS5jc3MNCiAgICBpbmNsdWRlczoNCiAgICAgIGJlZm9yZV9ib2R5OiBMb2dvX3ByZWZpeC5odG1sDQotLS0NCg0KYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9DQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpDQpgYGANCg0KDQo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPg0KDQpoMS50aXRsZSB7DQogIGZvbnQtc2l6ZTogMzhweDsNCiAgY29sb3I6IERhcmtSZWQ7DQogIHRleHQtYWxpZ246IGNlbnRlcjsNCn0NCmg0LmF1dGhvciB7IC8qIEhlYWRlciA0IC0gYW5kIHRoZSBhdXRob3IgYW5kIGRhdGEgaGVhZGVycyB1c2UgdGhpcyB0b28gICovDQogICAgZm9udC1zaXplOiAxOHB4Ow0KICBmb250LWZhbWlseTogIlRpbWVzIE5ldyBSb21hbiIsIFRpbWVzLCBzZXJpZjsNCiAgY29sb3I6IERhcmtSZWQ7DQogIHRleHQtYWxpZ246IGNlbnRlcjsNCn0NCmg0LmRhdGUgeyAvKiBIZWFkZXIgNCAtIGFuZCB0aGUgYXV0aG9yIGFuZCBkYXRhIGhlYWRlcnMgdXNlIHRoaXMgdG9vICAqLw0KICBmb250LXNpemU6IDE4cHg7DQogIGZvbnQtZmFtaWx5OiAiVGltZXMgTmV3IFJvbWFuIiwgVGltZXMsIHNlcmlmOw0KICBjb2xvcjogRGFya0JsdWU7DQogIHRleHQtYWxpZ246IGNlbnRlcjsNCn0NCjwvc3R5bGU+DQoNCiMgMiBjb2x1bWVzICAgICAgICANCg0KPGRpdiBpZD0ibGVmdCI+DQogICQkeV9pIFxiYWNrc2ltIE5vcm1hbChcbXVfaSwgXHNpZ21hKSQkDQogICQkXG11X2kgPSBcYWxwaGEgKyBcYmV0YSB4X2kkJA0KICAkJFxzaWdtYSBcYmFja3NpbSBVbmlmb3JtKDAsIDEpJCQNCiAgJCRcYmV0YSBcYmFja3NpbSBOb3JtYWwoMCwgMTApJCQNCiAgJCRcYWxwaGEgXGJhY2tzaW0gTm9ybWFsKDAsIDEwKSQkDQo8L2Rpdj4NCg0KPGRpdiBpZD0icmlnaHQiPg0KLSBgTGlrZWxpaG9vZGANCi0gYExpbmVhciBtb2RlbGANCi0gYHNpZ21hIHByaW9yYA0KLSBgYmV0YSBwcmlvcmANCi0gYGFscGhhIHByaW9yYA0KPC9kaXY+ICANCg0KDQojIG5vcm1hbCAgDQoNClRoaXMgaXMgYW4gUiBNYXJrZG93biBkb2N1bWVudC4gTWFya2Rvd24gaXMgYSBzaW1wbGUgZm9ybWF0dGluZyBzeW50YXggZm9yIGF1dGhvcmluZyBIVE1MLCBQREYsIGFuZCBNUyBXb3JkIGRvY3VtZW50cy4gRm9yIG1vcmUgZGV0YWlscyBvbiB1c2luZyBSIE1hcmtkb3duIHNlZSA8aHR0cDovL3JtYXJrZG93bi5yc3R1ZGlvLmNvbT4uDQoNCjxmb250IHNpemU9MzAwPg0KV2hlbiB5b3UgY2xpY2sgdGhlICoqS25pdCoqIGJ1dHRvbiBhIGRvY3VtZW50IHdpbGw8L2ZvbnQ+IGJlIGdlbmVyYXRlZCB0aGF0IGluY2x1ZGVzIGJvdGggY29udGVudCBhcyB3ZWxsIGFzIHRoZSBvdXRwdXQgb2YgYW55IGVtYmVkZGVkIFIgY29kZSBjaHVua3Mgd2l0aGluIHRoZSBkb2N1bWVudC4gDQoNCjxiZGkgc3R5bGU9ImZvbnQtc2l6ZTo3MCU7Ij4oKipgP2RwbHlyOjpzZWxlY3RgKiopPC9iZGk+DQoNCg0KWW91IGNhbiBlbWJlZCBhbiBSIGNvZGUgY2h1bmsgbGlrZSB0aGlzOg0KDQoNCg0KYGBge3IgY2Fyc30NCnN1bW1hcnkoY2FycykNCmBgYA0KDQojIyBJbmNsdWRpbmcgUGxvdHMNCg0KWW91IGNhbiBhbHNvIGVtYmVkIHBsb3RzLCBmb3IgZXhhbXBsZToNCg0KYGBge3IgcHJlc3N1cmUsIGVjaG89RkFMU0V9DQpwbG90KHByZXNzdXJlKQ0KYGBgDQoNCk5vdGUgdGhhdCB0aGUgYGVjaG8gPSBGQUxTRWAgcGFyYW1ldGVyIHdhcyBhZGRlZCB0byB0aGUgY29kZSBjaHVuayB0byBwcmV2ZW50IHByaW50aW5nIG9mIHRoZSBSIGNvZGUgdGhhdCBnZW5lcmF0ZWQgdGhlIHBsb3QuDQo=</div>
 
 
 

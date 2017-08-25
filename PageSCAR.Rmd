@@ -4,7 +4,11 @@ author: "NGUYEN Khac-Dung"
 date: "25 août 2017"
 output:
   html_document:
+    # theme: sky
+    # highlight: pygments
     css: custom.css
+    includes:
+      before_body: Logo_prefix.html
 ---
 
 ```{r setup, include=FALSE}
@@ -32,10 +36,39 @@ h4.date { /* Header 4 - and the author and data headers use this too  */
   text-align: center;
 }
 </style>
-      
+
+# 2 columes        
+
+<div id="left">
+  $$y_i \backsim Normal(\mu_i, \sigma)$$
+  $$\mu_i = \alpha + \beta x_i$$
+  $$\sigma \backsim Uniform(0, 1)$$
+  $$\beta \backsim Normal(0, 10)$$
+  $$\alpha \backsim Normal(0, 10)$$
+</div>
+
+<div id="right">
+- `Likelihood`
+- `Linear model`
+- `sigma prior`
+- `beta prior`
+- `alpha prior`
+</div>  
+
+
+# normal  
+
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+<font size=300>
+When you click the **Knit** button a document will</font> be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+<bdi style="font-size:70%;">(**`?dplyr::select`**)</bdi>
+
+
+You can embed an R code chunk like this:
+
+
 
 ```{r cars}
 summary(cars)
